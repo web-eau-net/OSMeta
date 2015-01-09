@@ -9,6 +9,10 @@
 // No direct access
 defined('_JEXEC') or die();
 
+if (version_compare(JVERSION, '3.0', 'ge')) {
+    JHtml::_('formbehavior.chosen', 'select');
+}
+
 $colspan = ($this->itemType !== 'home') && ($this->extension->isPro()) ? 5 : 4;
 
 if ($this->itemType === 'home') {
@@ -17,7 +21,7 @@ if ($this->itemType === 'home') {
 ?>
 
 <form action="index.php" method="post" name="adminForm" id="adminForm">
-
+<div class="row-fluid">
     <?php if (version_compare(JVERSION, '3.0', 'ge')) : ?>
         <div id="j-sidebar-container" class="span2">
             <?php echo $this->submenu; ?>
@@ -27,13 +31,23 @@ if ($this->itemType === 'home') {
     <div id="j-main-container" class="span10">
         <input type="hidden" name="filter_order" value="<?php echo $this->order ?>" />
         <input type="hidden" name="filter_order_Dir" value="<?php echo $this->order_Dir ?>" />
-        <table width="100%">
-            <tr>
-                <td align="right">
-                    <?php echo $this->filter; ?>
-                </td>
-            </tr>
-        </table>
+
+        <?php if (version_compare(JVERSION, '3.0', 'lt')) : ?>
+            <table width="100%">
+                <tr>
+                    <td align="right">
+                        <?php echo $this->filter; ?>
+                    </td>
+                </tr>
+            </table>
+        <?php else : ?>
+            <?php
+                $state = $this->model->getState();
+                $this->filterForm = $this->model->getFilterForm(array());
+                // var_dump($f);
+                echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+            ?>
+        <?php endif; ?>
 
         <table class="table table-striped adminlist" id="articleList">
             <thead>
@@ -188,19 +202,22 @@ if ($this->itemType === 'home') {
         <input type="hidden" name="task" value="view" />
         <input type="hidden" name="boxchecked" value="0" />
     </div>
+</div>
 
 </form>
 
-<div id="footer" class="span12">
-    <div>
-        <a href="https://www.alledia.com">
-            <img src="../media/com_osmeta/admin/images/alledia_logo_150x43.png" />
-        </a>
-    </div>
-    <br />
-    <div>
-        OSMeta is built by&nbsp;
-        <a href="https://www.alledia.com">Alledia</a>
+<div class="row-fluid">
+    <div id="footer" class="span12">
+        <div>
+            <a href="https://www.alledia.com">
+                <img src="../media/com_osmeta/admin/images/alledia_logo_150x43.png" />
+            </a>
+        </div>
+        <br />
+        <div>
+            OSMeta is built by&nbsp;
+            <a href="https://www.alledia.com">Alledia</a>
+        </div>
     </div>
 </div>
 

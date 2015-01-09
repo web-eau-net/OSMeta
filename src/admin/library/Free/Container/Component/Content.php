@@ -497,12 +497,12 @@ class Content extends AbstractContainer
 
             &nbsp;&nbsp;&nbsp;';
 
-        $result .= '<select name="com_content_filter_catid" class="inputbox" onchange="submitform();">' .
+        $result .= '<select name="com_content_filter_catid" onchange="submitform();">' .
                         '<option value="">Select category</option>' .
         JHtml::_('select.options', JHtml::_('category.options', 'com_content'), 'value', 'text', $catId) .
                     '</select>';
 
-        $result .= '<select name="com_content_filter_level" class="inputbox" onchange="this.form.submit()">' .
+        $result .= '<select name="com_content_filter_level" onchange="this.form.submit()">' .
                 '<option value="">Select max levels</option>' .
                 JHtml::_('select.options', $levels, 'value', 'text', $level) .
             '</select>';
@@ -511,7 +511,7 @@ class Content extends AbstractContainer
 
         $result .= '
 
-            <select name="com_content_filter_state" id="filter_state" class="inputbox" size="1"
+            <select name="com_content_filter_state" id="filter_state" size="1"
             onchange="submitform();">
                 <option value=""  >- Select State -</option>
                 <option value="P" ' . ($state == 'P' ? 'selected="selected"' : '') . '>Published</option>

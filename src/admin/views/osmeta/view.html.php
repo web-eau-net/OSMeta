@@ -100,6 +100,7 @@ class OSMetaViewOSMeta extends JViewLegacy
         }
 
         $this->extension = Alledia\Framework\Factory::getExtension('OSMeta', 'component');
+        $this->model = JModelList::getInstance('Articles', 'OSMetaModel');
 
         parent::display($tpl);
     }
